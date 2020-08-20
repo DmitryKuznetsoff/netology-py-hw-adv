@@ -26,19 +26,19 @@ class Stack:
         return len(self.stack)
 
     def is_balanced(self, string):
-        if string[0] in BRACKETS.values():
-            return f'string {string} is not balanced'
-        else:
-            for i in string:
-                if BRACKETS.get(self.peek()) == i:
-                    self.pop()
-                else:
-                    self.push(i)
-
-            if self.is_empty():
-                return f'string {string} is balanced'
-            else:
+        for i in string:
+            if self.peek() in BRACKETS.values():
                 return f'string {string} is not balanced'
+            elif BRACKETS.get(self.peek()) == i:
+                self.pop()
+            else:
+                self.push(i)
+            print(self.stack)
+
+        if self.is_empty():
+            return f'string {string} is balanced'
+        else:
+            return f'string {string} is not balanced'
 
 
 if __name__ == '__main__':
