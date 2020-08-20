@@ -1,4 +1,4 @@
-BRACKETS = ['()', '{}', '[]']
+BRACKETS = {'(': ')', '{': '}', '[': ']'}
 
 
 class Stack:
@@ -7,10 +7,7 @@ class Stack:
 
     def is_empty(self):
         length = self.size()
-        if length == 0:
-            return True
-        else:
-            return False
+        return length == 0
 
     def push(self, element):
         self.stack.append(element)
@@ -23,22 +20,25 @@ class Stack:
         if length:
             return self.stack[-1]
         else:
-            return ''
+            return None
 
     def size(self):
         return len(self.stack)
 
     def is_balanced(self, string):
-        for i in string:
-            if self.peek() + i in BRACKETS:
-                self.pop()
-            else:
-                self.push(i)
-
-        if self.is_empty():
-            return f'string {string} is balanced'
-        else:
+        if string[0] in BRACKETS.values():
             return f'string {string} is not balanced'
+        else:
+            for i in string:
+                if BRACKETS.get(self.peek()) == i:
+                    self.pop()
+                else:
+                    self.push(i)
+
+            if self.is_empty():
+                return f'string {string} is balanced'
+            else:
+                return f'string {string} is not balanced'
 
 
 if __name__ == '__main__':
