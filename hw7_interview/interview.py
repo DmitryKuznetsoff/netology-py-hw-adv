@@ -1,50 +1,48 @@
-from collections import deque
-
 BRACKETS = ['()', '{}', '[]']
 
 
 class Stack:
-    def __init__(self, string):
-        self.string = string
+    def __init__(self):
+        self.stack = []
 
     def is_empty(self):
-        if not self.string:
+        length = self.size()
+        if length == 0:
             return True
         else:
             return False
 
     def push(self, element):
-        return list(self.string).append(element)
+        self.stack.append(element)
 
-    def pop(self, element):
-        return list(self.string).pop(element)
+    def pop(self):
+        return self.stack.pop()
 
     def peek(self):
-        return list(self.string)[-1]
+        length = self.size()
+        if length:
+            return self.stack[-1]
+        else:
+            return ''
 
     def size(self):
-        return len(self.string)
+        return len(self.stack)
 
-    def is_balanced(self):
-        dq = deque(self.string)
-        length = self.size()
+    def is_balanced(self, string):
+        for i in string:
+            if self.peek() + i in BRACKETS:
+                self.pop()
+            else:
+                self.push(i)
+
         if self.is_empty():
-            return f'string {self.string} is not balanced'
-        elif length % 2 != 0:
-            return f'string {self.string} is not balanced'
+            return f'string {string} is balanced'
         else:
-            for i in range(int(length / 2)):
-                first = dq.popleft()
-                last = dq.pop()
-                if f'{first}{last}' not in BRACKETS:
-                    return f'string {self.string} is not balanced'
-                elif not dq:
-                    return f'string {self.string} is balanced'
+            return f'string {string} is not balanced'
 
 
 if __name__ == '__main__':
     strings = ['(((([{}]))))', '[([])((([[[]]])))]{()}', '{{[()]}}', '}{}', '{{[(])]}}', '[[{())}]']
-    objects = [Stack(string) for string in strings]
-    for obj in objects:
-        print(obj.is_balanced())
-
+    obj = Stack()
+    for s in strings:
+        print(obj.is_balanced(s))
