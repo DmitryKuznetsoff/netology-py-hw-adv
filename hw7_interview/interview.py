@@ -27,18 +27,16 @@ class Stack:
 
     def is_balanced(self, string):
         for i in string:
-            if self.peek() in BRACKETS.values():
-                return f'string {string} is not balanced'
-            elif BRACKETS.get(self.peek()) == i:
-                self.pop()
-            else:
+            if i in BRACKETS.keys():
                 self.push(i)
-            print(self.stack)
+            elif i in BRACKETS.values():
+                if BRACKETS.get(self.peek()) == i:
+                    self.pop()
+                else:
+                    return f'string {string} is not balanced'
 
-        if self.is_empty():
-            return f'string {string} is balanced'
-        else:
-            return f'string {string} is not balanced'
+            if self.is_empty():
+                return f'string {string} is balanced'
 
 
 if __name__ == '__main__':
