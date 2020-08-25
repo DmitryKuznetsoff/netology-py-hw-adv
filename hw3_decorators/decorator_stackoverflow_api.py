@@ -21,7 +21,7 @@ def logger(log_file):
             pprint(result)
             with open(log_file, 'a', encoding='utf-8') as write_file:
                 write_file.write(f'date: {datetime.datetime.now()} -- args: {args} -- return value: {result}\n')
-            return
+            return result
 
         return wrapper
 
