@@ -66,19 +66,23 @@ def get_post_by_tags(tags, posts):
     Ищет совпадения тэгов с информацией о статье и её содержимым
     Возвращает список статей, в которых упоминаются тэги
     """
+    # приводим список хабов, текст заголовка, превью и статьи к нижнему регистру
+    # и выбираем статьи с совпадениями в KEYWORDS:
     result = [post for post in posts
-              if set(tags) & set(post.hubs)
-              or set(tags) & set(post.title.split())
-              or set(tags) & set(post.preview_text.split())
+              if set(tags) & set(map(str.lower, post.hubs))
+              or set(tags) & set(map(str.lower, post.title.split()))
+              or set(tags) & set(map(str.lower, post.preview_text.split()))
               # хз надо ли искать совпадения в тексте статьи, написал просто на всякий случай:
-              # or set(tags) & set(post.get_post_text().split())
+              # or set(tags) & set(map(str.lower, post.get_post_text().split()))
               ]
     return result
 
 
 if __name__ == '__main__':
     url = 'https://habr.com/ru/all/'
-    KEYWORDS = ['*nix', 'PostgreSQL', 'Биотехнологии', 'Информационная безопасность']
-    posts_by_tags = get_post_by_tags(KEYWORDS, get_post_info_from_preview(url))
+    KEYWORDS = ['дизайн', 'фото', 'web', "python"]
+    # приводим KEYWORDS к нижнему регистру:
+    kw_lowercase = list(map(str.lower, KEYWORDS))
+    posts_by_tags = get_post_by_tags(kw_lowercase, get_post_info_from_preview(url))
     for post in posts_by_tags:
         print(post)
