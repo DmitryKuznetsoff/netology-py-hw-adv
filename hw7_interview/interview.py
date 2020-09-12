@@ -26,17 +26,24 @@ class Stack:
         return len(self.stack)
 
     def is_balanced(self, string):
-        for i in string:
-            if i in BRACKETS.keys():
-                self.push(i)
-            elif i in BRACKETS.values():
-                if BRACKETS.get(self.peek()) == i:
+        string_length = len(string)
+        for number, element in enumerate(string, start=1):
+
+            # если текущий элемент является открывающим - пишем в стек
+            if element in BRACKETS.keys():
+                self.push(element)
+            # если текущий элемент закрывающий, проверяем, соответствует ли он последнему открывающему в стеке
+            elif element in BRACKETS.values():
+                # если соответствует - снимаем открывающий элемент
+                if BRACKETS.get(self.peek()) == element:
                     self.pop()
                 else:
                     return f'string {string} is not balanced'
-
-            if self.is_empty():
+            # если дошли до конца строки и стек пустой: строка сбалансирована
+            if self.is_empty() and number == string_length:
                 return f'string {string} is balanced'
+            else:
+                return f'string {string} is not balanced'
 
 
 if __name__ == '__main__':
