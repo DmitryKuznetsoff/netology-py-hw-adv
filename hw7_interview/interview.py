@@ -42,7 +42,7 @@ class Stack:
             # если дошли до конца строки и стек пустой: строка сбалансирована
             if self.is_empty() and number == string_length:
                 return f'string {string} is balanced'
-            else:
+            elif not self.is_empty() and number == string_length:
                 return f'string {string} is not balanced'
 
 
