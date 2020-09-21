@@ -10,3 +10,6 @@
 5. [Regular expressions](hw5_regexp/)  
 6. [Web-scrapping](hw6_web-scrapping/)
 7. [Подготовка к собеседованию](hw7_interview/)
+
+## Дипломная работа:
+8. [VKinder](advpy14_diploma/)
